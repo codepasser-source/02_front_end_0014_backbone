@@ -1,0 +1,69 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>Backbone</title>
+
+<style type="text/css">
+.row {
+	line-height: 20px;
+	border: 1px solid #000000;
+}
+
+.col {
+	display: block;
+	width: 200px;
+	float: left;
+}
+</style>
+</head>
+<body>
+	<h1>Backbone 第二部分：视图（Views）</h1>
+	<hr>
+	<div name="main-container">
+		Backbone.View方法、属性和事件<br> Backbone视图实例包含以下方法和属性：
+		<ul>
+			<li>el</li>
+			<li>$el</li>
+			<li>setElement()</li>
+			<li>attributes</li>
+			<li>$()</li>
+			<li>render()</li>
+			<li>remove()</li>
+			<li>delegateEvents()</li>
+			<li>undelegateEvents()</li>
+		</ul>
+	</div>
+	<div id="gridViewContainer"></div>
+</body>
+<script type="text/javascript" src="js/mattdamon.js"></script>
+<script type="text/javascript">
+	mattdamon.lib.requirejs("/require.js", function() {
+		requirejs.config({
+			//baseurl必须指定为requirejs的路径否则i18n不能动态设置。只能依赖于IE local设置
+			baseUrl : "js/requirejs/" + version.requirejs,
+			paths : {
+				jquery : "../../jquery/" + version.jQuery + "/jquery",
+				underscore : "../../underscore/" + version.underscore
+						+ "/underscore",
+				backbone : "../../backbone/" + version.backbone + "/backbone",
+				mattdamon : "../../mattdamon/" + version.mattdamon
+			},
+			config : {
+				i18n : {
+					locale : "zh"
+				}
+			}
+		});
+		console.log("require.js completed");
+		require([ "backbone" ], function() {
+			console.log("backbone.js completed");
+			require([ "mattdamon/widget/app/0002" ], function(GridView) {
+				console.log("main.js completed");
+				var gridView = new GridView({});
+				gridView.render();
+			});
+		});
+	});
+</script>
+</html>

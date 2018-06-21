@@ -1,0 +1,128 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+
+	<modelVersion>4.0.0</modelVersion>
+
+	<properties>
+		<project.build.finalName>backbone</project.build.finalName>
+		<project.build.context>/backbone</project.build.context>
+		<project.build.encoding>UTF-8</project.build.encoding>
+		<project.install.phase>uat</project.install.phase>
+	</properties>
+
+	<groupId>com.mattdamon</groupId>
+	<artifactId>backbone</artifactId>
+	<version>1.0-SNAPSHOT</version>
+	<packaging>war</packaging>
+	<name>backbone</name>
+	<description>backbone</description>
+
+	<dependencies>
+		<!-- servlet-api provided -->
+		<dependency>
+			<groupId>org.apache.tomcat</groupId>
+			<artifactId>servlet-api</artifactId>
+			<version>6.0.29</version>
+			<scope>provided</scope>
+		</dependency>
+		<!-- servlet-api provided -->
+
+		<!-- jstl -->
+		<dependency>
+			<groupId>jstl</groupId>
+			<artifactId>jstl</artifactId>
+			<version>1.2</version>
+		</dependency>
+		<!-- jstl -->
+	</dependencies>
+
+	<build>
+		<finalName>${project.build.finalName}</finalName>
+		<directory>${basedir}/target</directory>
+		<sourceDirectory>${basedir}/src/main/java</sourceDirectory>
+		<outputDirectory>${basedir}/target/classes</outputDirectory>
+		<resources>
+			<resource>
+				<directory>${basedir}/src/main/resources</directory>
+			</resource>
+		</resources>
+		<plugins>
+			<!-- 编译 -->
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-compiler-plugin</artifactId>
+				<version>3.1</version>
+				<configuration>
+					<source>1.8</source>
+					<target>1.8</target>
+					<encoding>${project.build.encoding}</encoding>
+				</configuration>
+			</plugin>
+			<!-- resource -->
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-resources-plugin</artifactId>
+				<version>2.6</version>
+				<configuration>
+					<encoding>${project.build.encoding}</encoding>
+				</configuration>
+			</plugin>
+			<!-- source -->
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-source-plugin</artifactId>
+				<version>2.2.1</version>
+				<executions>
+					<execution>
+						<phase>package</phase>
+						<goals>
+							<goal>jar-no-fork</goal>
+						</goals>
+					</execution>
+				</executions>
+			</plugin>
+			<!-- Surefire Plugin -->
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-surefire-plugin</artifactId>
+				<version>2.17</version>
+				<inherited>true</inherited>
+				<configuration>
+					<argLine>
+						-Xmx1024m -XX:PermSize=256m -XX:MaxPermSize=256m
+					</argLine>
+					<forkMode>always</forkMode>
+					<skip>true</skip>
+				</configuration>
+			</plugin>
+			<!-- war打包 -->
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-war-plugin</artifactId>
+				<version>2.4</version>
+				<!-- <configuration> <webResources> <resource> <directory>config/${project.install.phase}</directory> 
+					<targetPath>WEB-INF/classes</targetPath> </resource> </webResources> </configuration> -->
+			</plugin>
+			<!-- ant script -->
+			<!-- <plugin> <groupId>org.apache.maven.plugins</groupId> <artifactId>maven-antrun-plugin</artifactId> 
+				<version>1.7</version> <executions> <execution> <id>upload-war</id> <phase>install</phase> 
+				<configuration> <tasks> <ant antfile="${basedir}/bin/${project.install.phase}-ant.xml"> 
+				<target name="deploy" /> </ant> </tasks> </configuration> <goals> <goal>run</goal> 
+				</goals> </execution> </executions> <dependencies> ftp <dependency> <groupId>org.apache.ant</groupId> 
+				<artifactId>ant-commons-net</artifactId> <version>1.9.4</version> </dependency> 
+				scp <dependency> <groupId>org.apache.ant</groupId> <artifactId>ant-jsch</artifactId> 
+				<version>1.9.4</version> </dependency> </dependencies> </plugin> -->
+			<!-- Tomcat Plugin -->
+			<plugin>
+				<groupId>org.codehaus.mojo</groupId>
+				<artifactId>tomcat-maven-plugin</artifactId>
+				<version>1.1</version>
+				<configuration>
+					<!-- 端口号默认8080，如果要覆盖请添加JVM参数 -Dmaven.tomcat.port=9999 -->
+					<path>${project.build.context}</path>
+					<port>8080</port>
+				</configuration>
+			</plugin>
+		</plugins>
+	</build>
+</project>

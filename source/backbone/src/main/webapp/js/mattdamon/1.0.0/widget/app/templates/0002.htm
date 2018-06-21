@@ -1,0 +1,12 @@
+<a class="btns-small" id="addBtn">添加</a>
+<% for(var i = 0; i < models.length; i++){ %> <% var item = models[i] %>
+<div class="row">
+	<div class="col"><%=item.get('name')%></div>
+	<div class="col"><%=item.get('age')%></div>
+	<div class="col"><%-item.get('sex')%></div>
+	<div class="col">
+		<a class="btns-small" id="removeBtn" idFiled="<%=item.get('id')%>">删除</a>
+	</div>
+	<div style="clear: both;"></div>
+</div>
+<% } %>

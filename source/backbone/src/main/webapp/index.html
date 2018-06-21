@@ -1,0 +1,40 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>Backbone</title>
+</head>
+<body>
+	<h1>Backbone</h1>
+	<hr>
+	<div name="main-container">
+		<a href="0001_models.html">Backbone 第一部分：模型（Models）</a> <br>
+		<a href="0002_views.html">Backbone 第二部分：视图（Views）</a> <br>
+	</div>
+</body>
+<script type="text/javascript" src="js/mattdamon.js"></script>
+<script type="text/javascript">
+	mattdamon.lib.requirejs("/require.js", function() {
+		requirejs.config({
+			//baseurl必须指定为requirejs的路径否则i18n不能动态设置。只能依赖于IE local设置
+			baseUrl : "js/requirejs/" + version.requirejs,
+			paths : {
+				jquery : "../../jquery/" + version.jQuery + "/jquery",
+				underscore : "../../underscore/" + version.underscore
+						+ "/underscore",
+				backbone : "../../backbone/" + version.backbone + "/backbone",
+				mattdamon : "../../mattdamon/" + version.mattdamon
+			},
+			config : {
+				i18n : {
+					locale : "zh"
+				}
+			}
+		});
+		console.log("require.js completed");
+		require([ "backbone" ], function() {
+			console.log("backbone.js completed");
+		});
+	});
+</script>
+</html>

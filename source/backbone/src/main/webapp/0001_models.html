@@ -1,0 +1,113 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>Backbone</title>
+</head>
+<body>
+	<h1>Backbone 第一部分：模型（Models）</h1>
+	<hr>
+	<div name="main-container">
+		Backbone.Model方法、属性与事件<br> Backbone模型实例包含以下方法和属性：
+		<ul>
+			<li>get</li>
+			<li>set</li>
+			<li>escape</li>
+			<li>has</li>
+			<li>unset</li>
+			<li>clear</li>
+			<li>id</li>
+			<li>idAttribute</li>
+			<li>cid</li>
+			<li>attributes</li>
+			<li>changed</li>
+			<li>defaultsv
+			<li>toJSON</li>
+			<li>sync</li>
+			<li>fetch</li>
+			<li>save</li>
+			<li>destroy</li>
+			<li>Underscore Methods:（keys、values、pairs、invert、pick、omit）</li>
+			<li>validate</li>
+			<li>validationError</li>
+			<li>isValid</li>
+			<li>url</li>
+			<li>urlRoot</li>
+			<li>parse</li>
+			<li>clone</li>
+			<li>isNew</li>
+			<li>hasChanged</li>
+			<li>changedAttributes</li>
+			<li>previous</li>
+			<li>previousAttributes</li>
+		</ul>
+	</div>
+</body>
+<script type="text/javascript" src="js/mattdamon.js"></script>
+<script type="text/javascript">
+	mattdamon.lib.requirejs("/require.js", function() {
+		requirejs.config({
+			//baseurl必须指定为requirejs的路径否则i18n不能动态设置。只能依赖于IE local设置
+			baseUrl : "js/requirejs/" + version.requirejs,
+			paths : {
+				jquery : "../../jquery/" + version.jQuery + "/jquery",
+				underscore : "../../underscore/" + version.underscore
+						+ "/underscore",
+				backbone : "../../backbone/" + version.backbone + "/backbone",
+				mattdamon : "../../mattdamon/" + version.mattdamon
+			},
+			config : {
+				i18n : {
+					locale : "zh"
+				}
+			}
+		});
+		console.log("require.js completed");
+		require([ "backbone" ], function() {
+			console.log("backbone.js completed");
+			require([ "mattdamon/widget/app/0001" ], function(Person) {
+				console.log("main.js completed");
+
+				var person = new Person({
+					name : "Matt",
+					height : '6\'2"'
+				});
+				//执行自定义方法
+				person.run();
+				//绑定change事件
+				person.bindEvent();
+
+				//set 触发validate方法,
+				console.log("set 触发validate方法");
+				person.set({
+					name : "Tom",
+					height : "6 feet"
+				}, {
+					validate : true
+				});
+				console.log(">>>>>>>>>>>>>>>>>set result:");
+				console.log(person.toJSON());
+
+				console.log("set 触发validate方法");
+				person.set({
+					name : "Joe",
+					height : "6 feet"
+				}, {
+					validate : true
+				});
+				console.log(">>>>>>>>>>>>>>>>>set result:");
+				console.log(person.toJSON());
+
+				//遍历属性
+				console.log(person.keys());
+				//遍历value
+				console.log(person.values());
+				//获取指定属性json
+				console.log(person.pick('name'));
+				//获取 排除指定属性之后的json
+				console.log(person.omit('height'));
+			});
+		});
+	});
+</script>
+</html>
